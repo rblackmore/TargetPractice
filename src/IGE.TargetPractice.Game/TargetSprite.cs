@@ -1,5 +1,7 @@
-﻿namespace Tut.ShootingGallery;
+﻿namespace IGE.TargetPractice.Game;
 using System;
+
+using IGE.Common.Graphics;
 
 using Microsoft.Xna.Framework;
 
@@ -23,14 +25,14 @@ internal class TargetSprite : Sprite2D
   {
     base.Initialize();
 
-    this.ChangePosition();
+    ChangePosition();
   }
 
   public override void LoadContent()
   {
     base.LoadContent();
-    this.halfWidth = this.Width / 2;
-    this.halfHeight = this.Height / 2;
+    halfWidth = Width / 2;
+    halfHeight = Height / 2;
   }
 
   public override void Update(GameTime gameTime)
@@ -40,13 +42,13 @@ internal class TargetSprite : Sprite2D
 
   public void ChangePosition()
   {
-    var posX = 
-      Random.Shared.Next(this.halfWidth, this.graphics.PreferredBackBufferWidth - this.halfWidth);
+    var posX =
+      Random.Shared.Next(halfWidth, graphics.PreferredBackBufferWidth - halfWidth);
 
-    var posY = 
-      Random.Shared.Next(this.halfHeight, this.graphics.PreferredBackBufferHeight - this.halfHeight);
+    var posY =
+      Random.Shared.Next(halfHeight, graphics.PreferredBackBufferHeight - halfHeight);
 
-    this.position = new Vector2(posX, posY);
+    position = new Vector2(posX, posY);
   }
 
   public bool IsHit(CrosshairSprite crossHair)
@@ -54,9 +56,9 @@ internal class TargetSprite : Sprite2D
     if (!crossHair.IsPressed)
       return false;
 
-    var distance = Vector2.Distance(this.position, crossHair.Position);
+    var distance = Vector2.Distance(position, crossHair.Position);
 
-    if (distance <= this.radius)
+    if (distance <= radius)
       return true;
 
     return false;

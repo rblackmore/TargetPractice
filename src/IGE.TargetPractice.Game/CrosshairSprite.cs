@@ -1,4 +1,6 @@
-﻿namespace Tut.ShootingGallery;
+﻿namespace IGE.TargetPractice.Game;
+
+using IGE.Common.Graphics;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -6,9 +8,9 @@ using Microsoft.Xna.Framework.Input;
 public class CrosshairSprite : Sprite2D
 {
   private MouseState mState;
-  private bool isPressed= false;
+  private bool isPressed = false;
 
-  public bool IsPressed => this.isPressed;
+  public bool IsPressed => isPressed;
 
   public CrosshairSprite(
     Game game,
@@ -18,22 +20,22 @@ public class CrosshairSprite : Sprite2D
   {
   }
 
-  public bool Fired => this.isPressed;
+  public bool Fired => isPressed;
 
   public override void Update(GameTime gameTime)
   {
     base.Update(gameTime);
 
-    this.mState = Mouse.GetState();
+    mState = Mouse.GetState();
 
-    this.position = this.mState.Position.ToVector2();
+    position = mState.Position.ToVector2();
 
-    if (this.mState.LeftButton == ButtonState.Pressed && !this.isPressed)
+    if (mState.LeftButton == ButtonState.Pressed && !isPressed)
     {
-      this.isPressed = true;
+      isPressed = true;
       return;
     }
 
-    this.isPressed = false;
+    isPressed = false;
   }
 }

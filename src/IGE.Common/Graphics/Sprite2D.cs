@@ -1,9 +1,4 @@
-﻿namespace Tut.ShootingGallery;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace IGE.Common.Graphics;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -38,8 +33,8 @@ public abstract class Sprite2D
   public Vector2 Scale { get => scale; init => scale = value; }
   public float Rotation { get => rotation; init => rotation = value; }
 
-  public int Width => this.texture.Width * (int)this.Scale.X;
-  public int Height => this.texture.Height * (int)this.Scale.Y;
+  public int Width => texture.Width * (int)Scale.X;
+  public int Height => texture.Height * (int)Scale.Y;
 
   public virtual void Initialize()
   {
@@ -47,19 +42,19 @@ public abstract class Sprite2D
 
   public virtual void LoadContent()
   {
-    this.texture = this.game.Content.Load<Texture2D>(this.assetName);
-    
+    texture = game.Content.Load<Texture2D>(assetName);
+
     CalculateAndSetOrigin();
   }
 
   private void CalculateAndSetOrigin()
   {
-    this.origin = new Vector2(this.texture.Width / 2, this.texture.Height / 2);
+    origin = new Vector2(texture.Width / 2, texture.Height / 2);
   }
 
   public virtual void UnloadContent()
   {
-    this.texture.Dispose();
+    texture.Dispose();
   }
 
   public virtual void Update(GameTime gameTime)
@@ -70,13 +65,13 @@ public abstract class Sprite2D
   public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
   {
     spriteBatch.Draw(
-      this.texture,
-      this.Position,
+      texture,
+      Position,
       null,
       Color.White,
-      this.Rotation,
-      this.Origin,
-      this.Scale,
+      Rotation,
+      Origin,
+      Scale,
       SpriteEffects.None,
       0);
   }
