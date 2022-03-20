@@ -25,6 +25,13 @@
 /processorParam:TextureFormat=Color
 /build:crosshairs.png
 
+#begin File.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:File.spritefont;DroidSansMono14.spritefont
+
 #begin galleryFont.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor

@@ -8,14 +8,16 @@ using Microsoft.Xna.Framework.Graphics;
 public abstract class StatElement<T>
 {
   private IntervalTimer timer;
-  private SpriteFont font;
-  private string prefix;
+  protected SpriteFont font;
+  protected readonly Game game;
+  protected string prefix;
   protected T value;
 
-  public StatElement(int updateSeconds, SpriteFont font, string prefix)
+  public StatElement(Game game, int updateSeconds, string fontName, string prefix)
   {
+    this.game = game;
     this.timer = new IntervalTimer(TimeSpan.FromSeconds(updateSeconds));
-    this.font = font;
+    this.font = this.game.Content.Load<SpriteFont>(fontName);
     this.prefix = prefix;
   }
 

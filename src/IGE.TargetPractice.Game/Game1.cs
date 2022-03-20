@@ -31,13 +31,10 @@ public class Game1 : Game
     this.Content.RootDirectory = "Content";
     this.IsFixedTimeStep = false;
     this.IsMouseVisible = false;
-
   }
 
   protected override void Initialize()
   {
-    this.fpsCounter = new FrameRateStat(1, this.gameFont);
-    this.timer = new IntervalTimer(TimeSpan.FromSeconds(5));
     target = new TargetSprite(this, this.graphics, "target");
     crosshair = new CrosshairSprite(this, this.graphics, "crosshairs");
 
@@ -57,7 +54,7 @@ public class Game1 : Game
     backgroundSprite = Content.Load<Texture2D>("sky");
     gameFont = Content.Load<SpriteFont>("galleryFont");
 
-    this.fpsCounter = new FrameRateStat(1, this.gameFont);
+    this.fpsCounter = new FrameRateStat(this, 1, "DroidSansMono14");
     this.timer = new IntervalTimer(TimeSpan.FromSeconds(5));
 
     base.LoadContent();
