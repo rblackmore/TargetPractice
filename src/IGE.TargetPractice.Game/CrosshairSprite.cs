@@ -22,6 +22,12 @@ public class CrosshairSprite : Sprite2D
 
   public bool Fired => isPressed;
 
+  public override void Initialize()
+  {
+    base.Initialize();
+    this.ChangeColor(Color.Green);
+  }
+
   public override void Update(GameTime gameTime)
   {
     base.Update(gameTime);

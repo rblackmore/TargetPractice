@@ -9,6 +9,8 @@ using Microsoft.Xna.Framework.Input;
 
 public class Game1 : Game
 {
+  private const int TARGET_FRAMERATE = 144;
+
   private GraphicsDeviceManager graphics;
   private SpriteBatch spriteBatch;
 
@@ -29,8 +31,10 @@ public class Game1 : Game
   {
     this.graphics = new GraphicsDeviceManager(this);
     this.Content.RootDirectory = "Content";
-    this.IsFixedTimeStep = false;
+    this.IsFixedTimeStep = true;
     this.IsMouseVisible = false;
+    this.TargetElapsedTime = TimeSpan.FromMilliseconds(1000f / TARGET_FRAMERATE);
+    this.graphics.SynchronizeWithVerticalRetrace = false;
   }
 
   protected override void Initialize()

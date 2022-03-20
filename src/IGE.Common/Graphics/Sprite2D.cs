@@ -52,6 +52,11 @@ public abstract class Sprite2D
     origin = new Vector2(texture.Width / 2, texture.Height / 2);
   }
 
+  public void ChangeColor(Color newColor)
+  {
+    this.color = newColor;
+  }
+
   public virtual void UnloadContent()
   {
     texture.Dispose();
@@ -68,7 +73,7 @@ public abstract class Sprite2D
       texture,
       Position,
       null,
-      Color.White,
+      this.Color,
       Rotation,
       Origin,
       Scale,
