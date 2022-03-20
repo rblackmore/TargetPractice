@@ -1,4 +1,8 @@
 ﻿namespace IGE.TargetPractice.Game;
+
+using IGE.Common;
+using IGE.Common.Stats;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -14,6 +18,10 @@ public class Game1 : Game
   Texture2D backgroundSprite;
   SpriteFont gameFont;
 
+  IntervalTimer timer;
+
+  FrameRateStat fpsCounter;
+
   int score = 0;
 
   public Game1()
@@ -21,13 +29,15 @@ public class Game1 : Game
   {
     this.graphics = new GraphicsDeviceManager(this);
     this.Content.RootDirectory = "Content";
-    this.IsFixedTimeStep = true;
+    this.IsFixedTimeStep = false;
     this.IsMouseVisible = false;
 
   }
 
   protected override void Initialize()
   {
+    this.fpsCounter = new FrameRateStat(1, this.gameFont);
+    this.timer = new IntervalTimer(TimeSpan.FromSeconds(5));
     target = new TargetSprite(this, this.graphics, "target");
     crosshair = new CrosshairSprite(this, this.graphics, "crosshairs");
 
@@ -47,6 +57,9 @@ public class Game1 : Game
     backgroundSprite = Content.Load<Texture2D>("sky");
     gameFont = Content.Load<SpriteFont>("galleryFont");
 
+    this.fpsCounter = new FrameRateStat(1, this.gameFont);
+    this.timer = new IntervalTimer(TimeSpan.FromSeconds(5));
+
     base.LoadContent();
   }
 
@@ -61,10 +74,13 @@ public class Game1 : Game
       || Keyboard.GetState().IsKeyDown(Keys.Escape))
       Exit();
 
+    this.fpsCounter.Update(gameTime);
+    this.timer.Update(gameTime);
+
     target.Update(gameTime);
     crosshair.Update(gameTime);
 
-    if (target.IsHit(crosshair))
+    if (target.IsHit(crosshair) || timer.IsTriggered())
     {
       score++;
       target.ChangePosition();
@@ -81,6 +97,7 @@ public class Game1 : Game
 
     this.spriteBatch.Draw(backgroundSprite, new Vector2(0,0), Color.White);
 
+
     this.target.Draw(gameTime, this.spriteBatch);
 
     this.crosshair.Draw(gameTime, this.spriteBatch);
@@ -88,8 +105,10 @@ public class Game1 : Game
     this.spriteBatch.DrawString(
       this.gameFont,
       $"Score: {score}",
-      Vector2.Zero,
+      new Vector2(30,30),
       Color.White);
+
+    this.fpsCounter.Draw(gameTime, spriteBatch);
 
     this.spriteBatch.End();
 
